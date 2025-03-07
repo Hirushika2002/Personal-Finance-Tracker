@@ -1,0 +1,95 @@
+﻿<Page x:Class="PersonalFinanceApp.DashboardPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+      Title="Dashboard">
+    <Grid Background="White">
+        <!-- Define Rows for Layout -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <!-- High-Level Summary -->
+            <RowDefinition Height="*" />
+            <!-- Buttons -->
+        </Grid.RowDefinitions>
+
+        <!-- High-Level Summary -->
+        <Grid Grid.Row="0" Margin="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Income vs Expenses Summary -->
+            <StackPanel Grid.Column="0" Margin="10">
+                <Border HorizontalAlignment="left" Background="LightBlue" BorderBrush="DarkBlue" BorderThickness="1" Width="260
+                        " CornerRadius="10" Margin="0,0,0,10">
+                    <TextBlock Text="High-Level Summary" Foreground="DarkBlue" FontSize="24" HorizontalAlignment="Left" Width="250" FontWeight="Bold" Padding="10,5"/>
+                </Border>
+
+                <Grid Margin="10,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="1*" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Margin="10">
+                        <TextBlock Text="Total Income" Foreground="LightGreen" FontSize="16" FontWeight="Bold" />
+                        <TextBlock x:Name="TotalIncome" Text="$0.00" Foreground="black" FontSize="24" />
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" Margin="10">
+                        <TextBlock Text="Total Expenses" Foreground="Red" FontSize="16" FontWeight="Bold" />
+                        <TextBlock x:Name="TotalExpenses" Text="$0.00" Foreground="Black" FontSize="24" />
+                    </StackPanel>
+                    <StackPanel Grid.Column="2" Margin="10">
+                        <TextBlock Text="Net Income" Foreground="Yellow" FontSize="16" FontWeight="Bold" />
+                        <TextBlock x:Name="NetIncome" Text="$0.00" Foreground="Black" FontSize="24" />
+                    </StackPanel>
+                </Grid>
+
+                <!-- Bar Chart -->
+                <StackPanel Margin="10" VerticalAlignment="Stretch">
+                    <TextBlock Text="Income vs Expenses" Foreground="White" FontSize="16" FontWeight="Bold" Margin="0,10,0,10" />
+                    <lvc:CartesianChart x:Name="IncomeExpensesChart" Background="#333333" VerticalAlignment="Stretch" Height="400">
+                        <lvc:CartesianChart.AxisX>
+                            <lvc:Axis Title="Date" Foreground="White" />
+                        </lvc:CartesianChart.AxisX>
+                        <lvc:CartesianChart.AxisY>
+                            <lvc:Axis Title="Amount ($)" Foreground="White" LabelFormatter="{Binding}" MinValue="0" />
+                        </lvc:CartesianChart.AxisY>
+                    </lvc:CartesianChart>
+                </StackPanel>
+            </StackPanel>
+
+            <!-- Expense Breakdown Chart -->
+            <StackPanel Grid.Column="1" Margin="10">
+                <TextBlock Text="Expense Breakdown (Last Month)" Foreground="White" FontSize="24" FontWeight="Bold" Margin="0,0,0,10" />
+                <TextBlock Text="This graph shows your income and expenses trends over the last month." 
+           Foreground="LightGray" FontSize="14" TextWrapping="Wrap" Margin="0,0,0,0" />
+                <lvc:PieChart x:Name="ExpenseBreakdownChart" Margin="0, 115, 0, 10" Height="400" VerticalAlignment="Stretch" RenderTransformOrigin="0.457,1.388"/>
+                <TextBlock x:Name="NoDataMessage" Text="No expense data available." Foreground="Gray" FontSize="14" FontStyle="Italic" Visibility="Collapsed" />
+            </StackPanel>
+        </Grid>
+
+        <!-- Recent Transactions Section -->
+        <Grid Grid.Row="1" Margin="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Margin="10">
+                <TextBlock Text="Recent Transactions" Foreground="White" FontSize="16" FontWeight="Bold" Margin="0,0,0,10" />
+                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Height="400">
+                    <StackPanel x:Name="RecentActivityList" />
+                </ScrollViewer>
+            </StackPanel>
+        </Grid>
+
+        <!-- Hover Popup for Transactions -->
+        <Popup x:Name="TransactionPopup" Placement="Mouse" AllowsTransparency="True" PopupAnimation="Fade">
+            <Border Background="#333333" BorderBrush="Gray" BorderThickness="1" CornerRadius="5" Padding="10">
+                <TextBlock x:Name="PopupText" Foreground="White" FontSize="14" TextWrapping="Wrap" />
+            </Border>
+        </Popup>
+    </Grid>
+
+</Page>

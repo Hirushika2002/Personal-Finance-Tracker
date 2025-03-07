@@ -1,0 +1,90 @@
+﻿<Page x:Class="PersonalFinanceApp.Views.BudgetsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+      Title="BudgetsPage">
+    <Grid Background="#1E1E1E" Margin="20">
+        <!-- Define Rows -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <!-- Summary Section -->
+            <RowDefinition Height="*" />
+            <!-- Budget List Section -->
+            <RowDefinition Height="Auto" />
+            <!-- Pie Chart -->
+            <RowDefinition Height="Auto" />
+            <!-- Action Buttons -->
+        </Grid.RowDefinitions>
+
+        <!-- Summary Section -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+            <StackPanel Margin="20">
+                <TextBlock Text="Total Budget Allocated" Foreground="White" FontSize="16" FontWeight="Bold" />
+                <TextBlock x:Name="TotalBudgetText" Text="$0.00" Foreground="LightGreen" FontSize="24" />
+            </StackPanel>
+            <StackPanel Margin="20">
+                <TextBlock Text="Total Categories" Foreground="White" FontSize="16" FontWeight="Bold" />
+                <TextBlock x:Name="TotalCategories" Text="0" Foreground="Yellow" FontSize="24" />
+            </StackPanel>
+        </StackPanel>
+
+        <!-- Combine Budget List Section and Pie Chart Section into one scrollable area -->
+        <ScrollViewer Grid.Row="1" Grid.RowSpan="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Margin="10">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <!-- Budget List Section -->
+                <DataGrid Grid.Row="0" x:Name="BudgetsGrid" AutoGenerateColumns="False" Foreground="White" Background="#333333" 
+                  BorderBrush="Gray" BorderThickness="1" RowBackground="#2A2A2A" AlternatingRowBackground="#1E1E1E"
+                  Margin="10" CellEditEnding="BudgetsGrid_CellEditEnding" LoadingRow="BudgetsGrid_LoadingRow"
+                  CanUserAddRows="False">
+                    <DataGrid.Resources>
+                        <!-- Header Style -->
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="Background" Value="Black" />
+                            <Setter Property="Foreground" Value="White" />
+                            <Setter Property="FontWeight" Value="Bold" />
+                            <Setter Property="HorizontalContentAlignment" Value="Left" />
+                            <Setter Property="BorderBrush" Value="Gray" />
+                        </Style>
+                    </DataGrid.Resources>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Category" Binding="{Binding Category}" Width="*" />
+                        <DataGridTextColumn Header="Budget Amount" Binding="{Binding Amount}" Width="*" />
+                        <DataGridTemplateColumn Header="Actions" Width="Auto">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="Delete" Command="{Binding DataContext.DeleteBudgetCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                    CommandParameter="{Binding}" Background="Red" Foreground="White" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <!-- Pie Chart Section -->
+                <StackPanel Grid.Row="1" Orientation="Vertical" Margin="10">
+                    <TextBlock Text="Budget Breakdown by Category" Foreground="White" FontSize="16" FontWeight="Bold" Margin="0,0,0,10" />
+                    <TextBlock x:Name="BudgetPieChartNoDataMessage" 
+                       Text="No budget data available to display." 
+                       Foreground="Gray" FontSize="14" FontStyle="Italic" Visibility="Collapsed" />
+                    <lvc:PieChart x:Name="BudgetPieChart" Height="300" Visibility="Collapsed" />
+                </StackPanel>
+            </Grid>
+        </ScrollViewer>
+
+
+        <!-- Action Buttons -->
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+            <ComboBox x:Name="CategoryPicker" Width="150" Margin="10" 
+                       />
+            <TextBox x:Name="BudgetAmountInput" Width="150" Margin="10" 
+                    />
+            <Button Content="Add Budget" Width="150" Margin="10" 
+                    Style="{StaticResource DarkThemeButton}" Click="AddBudget_Click"/>
+        </StackPanel>
+    </Grid>
+</Page>

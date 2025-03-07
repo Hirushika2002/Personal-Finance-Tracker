@@ -1,0 +1,101 @@
+﻿<Page x:Class="PersonalFinanceApp.RecordsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="Records">
+    <Grid Background="#1E1E1E" Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <!-- Page Title -->
+            <RowDefinition Height="*" />
+            <!-- Main Content -->
+        </Grid.RowDefinitions>
+
+        <!-- Page Title -->
+        <TextBlock Text="Records" Foreground="White" FontSize="24" FontWeight="Bold"
+                   HorizontalAlignment="Center" Margin="0,0,0,20" />
+
+        <!-- Main Content -->
+        <Grid Grid.Row="1" Margin="0,20,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <!-- Transactions -->
+                <ColumnDefinition Width="1*" />
+                <!-- Paystubs -->
+            </Grid.ColumnDefinitions>
+
+            <!-- Transactions Section -->
+            <StackPanel Grid.Column="0" Margin="10">
+                <TextBlock Text="Transactions" Foreground="White" FontSize="18" FontWeight="Bold" Margin="0,0,0,10" />
+                <!-- Transactions Section -->
+                <ScrollViewer VerticalScrollBarVisibility="Auto" Height="300">
+                    <DataGrid x:Name="TransactionsGrid" AutoGenerateColumns="False" Background="#333333" Foreground="White"
+              BorderBrush="Gray" GridLinesVisibility="Horizontal" RowBackground="#444444" 
+              AlternatingRowBackground="#383838" ScrollViewer.VerticalScrollBarVisibility="Auto"
+              CellEditEnding="TransactionsGrid_CellEditEnding" LoadingRow="TransactionsGrid_LoadingRow" CanUserAddRows="False">
+                        <DataGrid.Resources>
+                            <!-- Header Style -->
+                            <Style TargetType="DataGridColumnHeader">
+                                <Setter Property="Background" Value="Black" />
+                                <Setter Property="Foreground" Value="White" />
+                                <Setter Property="FontWeight" Value="Bold" />
+                                <Setter Property="HorizontalContentAlignment" Value="Left" />
+                                <Setter Property="BorderBrush" Value="Gray" />
+                            </Style>
+                        </DataGrid.Resources>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Category" Binding="{Binding Category}" Width="2*" />
+                            <DataGridTextColumn Header="Amount" Binding="{Binding Amount}" Width="1.5*" />
+                            <DataGridTextColumn Header="Date" Binding="{Binding Date}" Width="1.5*" />
+                            <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="3*" />
+                            <DataGridTemplateColumn Header="Actions">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Content="Delete" Command="{Binding DataContext.DeleteTransactionCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                CommandParameter="{Binding}" Background="Red" Foreground="White" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </ScrollViewer>
+
+            </StackPanel>
+
+            <!-- Paystubs Section -->
+            <StackPanel Grid.Column="1" Margin="10">
+                <TextBlock Text="Paystubs" Foreground="White" FontSize="18" FontWeight="Bold" Margin="0,0,0,10" />
+                <ScrollViewer VerticalScrollBarVisibility="Auto" Height="300">
+                    <DataGrid x:Name="PaystubsGrid" AutoGenerateColumns="False" Background="#333333" Foreground="White"
+                              BorderBrush="Gray" GridLinesVisibility="Horizontal" RowBackground="#444444" 
+                              AlternatingRowBackground="#383838" ScrollViewer.VerticalScrollBarVisibility="Auto"
+                              CellEditEnding="PaystubsGrid_CellEditEnding" LoadingRow="PaystubsGrid_LoadingRow" CanUserAddRows="False">
+                        <DataGrid.Resources>
+                            <!-- Header Style -->
+                            <Style TargetType="DataGridColumnHeader">
+                                <Setter Property="Background" Value="Black" />
+                                <Setter Property="Foreground" Value="White" />
+                                <Setter Property="FontWeight" Value="Bold" />
+                                <Setter Property="HorizontalContentAlignment" Value="Left" />
+                                <Setter Property="BorderBrush" Value="Gray" />
+                            </Style>
+                        </DataGrid.Resources>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Date" Binding="{Binding Date}" Width="1.5*" />
+                            <DataGridTextColumn Header="Income" Binding="{Binding Income}" Width="1.5*" />
+                            <DataGridTextColumn Header="Employer/Source" Binding="{Binding Employer}" Width="2*" />
+                            <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="3*" />
+                            <DataGridTemplateColumn Header="Actions">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Content="Delete" Command="{Binding DataContext.DeletePaystubCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                CommandParameter="{Binding}" Background="Red" Foreground="White" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </ScrollViewer>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>

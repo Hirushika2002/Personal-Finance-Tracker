@@ -1,0 +1,12 @@
+Step 3: Build and Publish with dotnet CLI
+
+    Open a terminal:
+        Navigate to the folder where your .csproj file is located.
+    Run the following command to publish your app:
+COMMAND:
+dotnet publish -c Release -r win-x64 --self-contained true /p:PublishSingleFile=true
+
+    -c Release: Builds the application in Release mode.
+    -r win-x64: Targets the 64-bit Windows platform (change to win-x86 for 32-bit).
+    --self-contained true: Includes the .NET runtime in the build.
+    /p:PublishSingleFile=true: Creates a single .exe.

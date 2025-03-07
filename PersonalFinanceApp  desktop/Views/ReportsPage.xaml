@@ -1,0 +1,241 @@
+﻿<Page x:Class="PersonalFinanceApp.ReportsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+      Title="Reports">
+    <Grid Background="#1E1E1E">
+        <!-- Define Rows for Layout -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <!-- Page Title -->
+            <RowDefinition Height="Auto" />
+            <!-- Date Range Selector -->
+            <RowDefinition Height="Auto" />
+            <!-- Summary Section -->
+            <RowDefinition Height="*" />
+            <!-- Scrollable Graphs -->
+        </Grid.RowDefinitions>
+
+        <!-- Page Title -->
+        <TextBlock Text="Reports and Analytics" Foreground="White" FontSize="24" FontWeight="Bold" 
+                   HorizontalAlignment="Center" Margin="0,20" />
+
+        <!-- Date Range Selector -->
+        <StackPanel Grid.Row="1" Margin="0,10" Orientation="Horizontal" HorizontalAlignment="Center">
+            <TextBlock Text="Select Date Range:" Foreground="White" FontSize="16" Margin="0,0,10,0" VerticalAlignment="Center" />
+
+            <!-- Start Date -->
+            <StackPanel Margin="0,0,10,0">
+                <TextBlock Text="Start Date" Foreground="White" FontSize="14" />
+                <DatePicker x:Name="StartDatePicker" FontSize="14" HorizontalAlignment="Stretch" SelectedDateChanged="OnDateChanged">
+                    <DatePicker.Resources>
+                        <!-- Style for the DatePicker TextBox -->
+                        <Style TargetType="DatePickerTextBox">
+                            <Setter Property="Foreground" Value="White" />
+                            <Setter Property="Background" Value="#333333" />
+                            <Setter Property="BorderBrush" Value="Gray" />
+                            <Setter Property="BorderThickness" Value="1" />
+                            <Setter Property="Padding" Value="5,2" />
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="DatePickerTextBox">
+                                        <Border Background="{TemplateBinding Background}" 
+                                        BorderBrush="{TemplateBinding BorderBrush}" 
+                                        BorderThickness="{TemplateBinding BorderThickness}" 
+                                        CornerRadius="2">
+                                            <ScrollViewer Margin="0" x:Name="PART_ContentHost" Foreground="White" />
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+
+                        <!-- Style for the Popup Calendar -->
+                        <Style TargetType="Calendar">
+                            <Setter Property="Foreground" Value="White" />
+                            <Setter Property="Background" Value="#333333" />
+                        </Style>
+
+                        <!-- Style for DatePicker -->
+                        <Style TargetType="DatePicker">
+                            <Setter Property="Foreground" Value="White" />
+                            <Setter Property="Background" Value="#333333" />
+                            <Setter Property="BorderBrush" Value="Gray" />
+                        </Style>
+                    </DatePicker.Resources>
+                </DatePicker>
+            </StackPanel>
+
+            <!-- End Date -->
+            <StackPanel Margin="0,0,10,0">
+                <TextBlock Text="End Date" Foreground="White" FontSize="14" />
+                <DatePicker x:Name="EndDatePicker" FontSize="14" HorizontalAlignment="Stretch" SelectedDateChanged="OnDateChanged">
+                    <DatePicker.Resources>
+                        <!-- Style for the DatePicker TextBox -->
+                        <Style TargetType="DatePickerTextBox">
+                            <Setter Property="Foreground" Value="White" />
+                            <Setter Property="Background" Value="#333333" />
+                            <Setter Property="BorderBrush" Value="Gray" />
+                            <Setter Property="BorderThickness" Value="1" />
+                            <Setter Property="Padding" Value="5,2" />
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="DatePickerTextBox">
+                                        <Border Background="{TemplateBinding Background}" 
+                                        BorderBrush="{TemplateBinding BorderBrush}" 
+                                        BorderThickness="{TemplateBinding BorderThickness}" 
+                                        CornerRadius="2">
+                                            <ScrollViewer Margin="0" x:Name="PART_ContentHost" Foreground="White" />
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+
+                        <!-- Style for the Popup Calendar -->
+                        <Style TargetType="Calendar">
+                            <Setter Property="Foreground" Value="White" />
+                            <Setter Property="Background" Value="#333333" />
+                        </Style>
+
+                        <!-- Style for DatePicker -->
+                        <Style TargetType="DatePicker">
+                            <Setter Property="Foreground" Value="White" />
+                            <Setter Property="Background" Value="#333333" />
+                            <Setter Property="BorderBrush" Value="Gray" />
+                        </Style>
+                    </DatePicker.Resources>
+                </DatePicker>
+            </StackPanel>
+
+            <Button Content="Download CSV" Width="150" Height="40" Margin="10"
+            Style="{StaticResource DarkThemeButton}" Click="OnDownloadCsv"/>
+        </StackPanel>
+
+
+        <!-- Summary Section -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20">
+            <StackPanel Margin="20">
+                <TextBlock Text="Total Income" Foreground="White" FontSize="18" FontWeight="Bold" />
+                <TextBlock x:Name="TotalIncome" Text="$0.00" Foreground="LightGreen" FontSize="16" />
+            </StackPanel>
+            <StackPanel Margin="20">
+                <TextBlock Text="Total Expenses" Foreground="White" FontSize="18" FontWeight="Bold" />
+                <TextBlock x:Name="TotalExpenses" Text="$0.00" Foreground="Red" FontSize="16" />
+            </StackPanel>
+            <StackPanel Margin="20">
+                <TextBlock Text="Net Income" Foreground="White" FontSize="18" FontWeight="Bold" />
+                <TextBlock x:Name="NetIncome" Text="$0.00" Foreground="Yellow" FontSize="16" />
+            </StackPanel>
+        </StackPanel>
+
+        <!-- Scrollable Graphs Section -->
+        <ScrollViewer Grid.Row="3" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Margin="20">
+            <StackPanel>
+                <!-- Graph 1 -->
+                <StackPanel Margin="10">
+                    <TextBlock Text="Income vs Expenses Over Time" Foreground="White" FontSize="16" FontWeight="Bold" Margin="0,0,0,10" />
+                    <TextBlock Text="This graph compares income and expenses trends over the selected period."
+                               Foreground="LightGray" FontSize="14" TextWrapping="Wrap" Margin="0,0,0,10" />
+                    <TextBlock x:Name="IncomeExpensesNoDataMessage" Text="No data available for Income vs Expenses." 
+               Foreground="Gray" FontSize="14" FontStyle="Italic" Visibility="Collapsed" />
+                    <Border Background="#333333" CornerRadius="5" Padding="10">
+                        <lvc:CartesianChart x:Name="IncomeExpensesChart" Background="#333333" VerticalAlignment="Stretch" Margin="10,0,10,10" Height="300">
+                            <lvc:CartesianChart.AxisX>
+                                <lvc:Axis Title="Date" Foreground="White" />
+                            </lvc:CartesianChart.AxisX>
+                            <lvc:CartesianChart.AxisY>
+                                <lvc:Axis Title="Amount ($)" Foreground="White" LabelFormatter="{Binding}" MinValue="0"/>
+                            </lvc:CartesianChart.AxisY>
+                        </lvc:CartesianChart>
+                        
+
+                    </Border>
+                </StackPanel>
+
+                <!-- Graph 2 -->
+                <StackPanel Margin="10">
+                    <TextBlock Text="Expense Breakdown" Foreground="White" FontSize="16" FontWeight="Bold" Margin="0,0,0,10" />
+                    <TextBlock Text="This pie chart shows the proportion of expenses by category."
+                               Foreground="LightGray" FontSize="14" TextWrapping="Wrap" Margin="0,0,0,10" />
+                    <TextBlock x:Name="ExpenseBreakdownNoDataMessage" Text="No data available for Expense Breakdown." 
+               Foreground="Gray" FontSize="14" FontStyle="Italic" Visibility="Collapsed" />
+                    <Border Background="#333333" CornerRadius="5" Padding="10">
+                        <lvc:PieChart x:Name="ExpenseBreakdownChart" Height="300" />
+                    </Border>
+                </StackPanel>
+
+                <!-- Monthly Averages -->
+                <StackPanel Margin="10">
+                    <TextBlock Text="Monthly Averages" Foreground="White" FontSize="16" FontWeight="Bold" Margin="0,0,0,10" />
+                    <TextBlock Text="This graph shows the average income, expenses, and savings per month over the selected period."
+                       Foreground="LightGray" FontSize="14" TextWrapping="Wrap" Margin="0,0,0,10" />
+                    <TextBlock x:Name="MonthlyAveragesNoDataMessage" Text="No data available for Monthly Averages." 
+               Foreground="Gray" FontSize="14" FontStyle="Italic" Visibility="Collapsed" />
+                    <Border Background="#333333" CornerRadius="5" Padding="10">
+                        <lvc:CartesianChart x:Name="MonthlyAveragesChart" Background="#333333" VerticalAlignment="Stretch" Margin="10,0,10,10" Height="300">
+                            <lvc:CartesianChart.AxisX>
+                                <lvc:Axis Title="Month" Foreground="White" />
+                            </lvc:CartesianChart.AxisX>
+                            <lvc:CartesianChart.AxisY>
+                                <lvc:Axis Title="Average Amount ($)" Foreground="White" LabelFormatter="{Binding}" MinValue="0"/>
+                            </lvc:CartesianChart.AxisY>
+                        </lvc:CartesianChart>
+                    </Border>
+                </StackPanel>
+
+                <!-- Expense Distribution Over Time -->
+                <StackPanel Margin="10">
+                    <TextBlock Text="Expense Distribution Over Time" Foreground="White" FontSize="16" FontWeight="Bold" Margin="0,0,0,10" />
+                    <TextBlock Text="This graph shows how expenses are distributed across categories over time."
+                       Foreground="LightGray" FontSize="14" TextWrapping="Wrap" Margin="0,0,0,10" />
+                    <TextBlock x:Name="ExpenseDistributionNoDataMessage" Text="No data available for Expense Distribution." 
+               Foreground="Gray" FontSize="14" FontStyle="Italic" Visibility="Collapsed" />
+                    <Border Background="#333333" CornerRadius="5" Padding="10">
+                        <lvc:CartesianChart x:Name="ExpenseDistributionChart" Background="#333333" VerticalAlignment="Stretch" Margin="10,0,10,10" Height="300">
+                            <lvc:CartesianChart.AxisX>
+                                <lvc:Axis Title="Month" Foreground="White" />
+                            </lvc:CartesianChart.AxisX>
+                            <lvc:CartesianChart.AxisY>
+                                <lvc:Axis Title="Amount ($)" Foreground="White" LabelFormatter="{Binding}" MinValue="0"/>
+                            </lvc:CartesianChart.AxisY>
+                        </lvc:CartesianChart>
+                    </Border>
+                </StackPanel>
+
+                <!-- Expense Heatmap -->
+                <StackPanel Margin="10">
+                    <TextBlock Text="Expense Heatmap" Foreground="White" FontSize="16" FontWeight="Bold" Margin="0,0,0,10" />
+                    <TextBlock Text="This heatmap shows daily expenses over the selected period, with darker shades representing higher expenses."
+               Foreground="LightGray" FontSize="14" TextWrapping="Wrap" Margin="0,0,0,10" />
+                    <TextBlock x:Name="ExpenseHeatmapNoDataMessage" Text="No data available for Expense Heatmap." 
+               Foreground="Gray" FontSize="14" FontStyle="Italic" Visibility="Collapsed" />
+                    <Border Background="#333333" CornerRadius="5" Padding="10">
+                        <lvc:CartesianChart x:Name="ExpenseHeatmap" Background="#333333" Height="300">
+                            <lvc:CartesianChart.AxisX>
+                                <lvc:Axis Title="Day of the Month" Foreground="White" />
+                            </lvc:CartesianChart.AxisX>
+                            <lvc:CartesianChart.AxisY>
+                                <lvc:Axis Title="Month" Foreground="White" LabelsRotation="45" />
+                            </lvc:CartesianChart.AxisY>
+                        </lvc:CartesianChart>
+                    </Border>
+                </StackPanel>
+
+                <StackPanel Margin="10">
+                    <TextBlock Text="Budget vs Actual Spending by Category" Foreground="White" FontSize="16" FontWeight="Bold" Margin="0,0,0,10" />
+                    <TextBlock Text="This bar chart compares your budgeted amounts with actual spending in each category for the most recent month."
+               Foreground="LightGray" FontSize="14" TextWrapping="Wrap" Margin="0,0,0,10" />
+                    <TextBlock x:Name="BudgetVsActualNoDataMessage" Text="No data available for Budget vs Actual Spending." 
+                                   Foreground="Gray" FontSize="14" FontStyle="Italic" Visibility="Collapsed" />
+                    <Border Background="#333333" CornerRadius="5" Padding="10">
+                    <lvc:CartesianChart x:Name="BudgetVsActualChart" Height="300" />
+                    </Border>
+                </StackPanel>
+
+
+
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>
