@@ -3,7 +3,13 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
       Title="BudgetsPage">
-    <Grid Background="#1E1E1E" Margin="20">
+    <Grid Margin="20">
+
+        <Grid.Background>
+            <ImageBrush ImageSource="https://static.vecteezy.com/system/resources/previews/025/236/409/large_2x/finance-and-economy-concept-budget-2024-text-on-wooden-blocks-background-free-photo.jpeg" Stretch="UniformToFill"/>
+        </Grid.Background>
+
+
         <!-- Define Rows -->
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -20,11 +26,11 @@
         <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
             <StackPanel Margin="20">
                 <TextBlock Text="Total Budget Allocated" Foreground="White" FontSize="16" FontWeight="Bold" />
-                <TextBlock x:Name="TotalBudgetText" Text="$0.00" Foreground="LightGreen" FontSize="24" />
+                <TextBlock x:Name="TotalBudgetText" Text="$0.00" Foreground="Black" FontWeight="Bold" FontSize="24" />
             </StackPanel>
             <StackPanel Margin="20">
                 <TextBlock Text="Total Categories" Foreground="White" FontSize="16" FontWeight="Bold" />
-                <TextBlock x:Name="TotalCategories" Text="0" Foreground="Yellow" FontSize="24" />
+                <TextBlock x:Name="TotalCategories" Text="0" Foreground="Black" FontWeight="Bold" FontSize="24" />
             </StackPanel>
         </StackPanel>
 
@@ -37,7 +43,7 @@
                 </Grid.RowDefinitions>
 
                 <!-- Budget List Section -->
-                <DataGrid Grid.Row="0" x:Name="BudgetsGrid" AutoGenerateColumns="False" Foreground="White" Background="#333333" 
+                <DataGrid HorizontalAlignment="Center" Grid.Row="0" x:Name="BudgetsGrid" AutoGenerateColumns="False" Foreground="White" Background="#333333" 
                   BorderBrush="Gray" BorderThickness="1" RowBackground="#2A2A2A" AlternatingRowBackground="#1E1E1E"
                   Margin="10" CellEditEnding="BudgetsGrid_CellEditEnding" LoadingRow="BudgetsGrid_LoadingRow"
                   CanUserAddRows="False">
@@ -70,7 +76,7 @@
                     <TextBlock Text="Budget Breakdown by Category" Foreground="White" FontSize="16" FontWeight="Bold" Margin="0,0,0,10" />
                     <TextBlock x:Name="BudgetPieChartNoDataMessage" 
                        Text="No budget data available to display." 
-                       Foreground="Gray" FontSize="14" FontStyle="Italic" Visibility="Collapsed" />
+                       Foreground="White" FontWeight="Bold" FontSize="14" FontStyle="Italic" Visibility="Collapsed" />
                     <lvc:PieChart x:Name="BudgetPieChart" Height="300" Visibility="Collapsed" />
                 </StackPanel>
             </Grid>
@@ -79,9 +85,9 @@
 
         <!-- Action Buttons -->
         <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
-            <ComboBox x:Name="CategoryPicker" Width="150" Margin="10" 
+            <ComboBox Background="White" Foreground="Black" x:Name="CategoryPicker" Width="150" Margin="10" 
                        />
-            <TextBox x:Name="BudgetAmountInput" Width="150" Margin="10" 
+            <TextBox Background="White" x:Name="BudgetAmountInput" Width="150" Margin="10" Foreground="Black"
                     />
             <Button Content="Add Budget" Width="150" Margin="10" 
                     Style="{StaticResource DarkThemeButton}" Click="AddBudget_Click"/>

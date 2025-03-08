@@ -173,7 +173,7 @@
                 <!-- Monthly Averages -->
                 <StackPanel Margin="10">
                     <TextBlock Text="Monthly Averages" Foreground="White" FontSize="16" FontWeight="Bold" Margin="0,0,0,10" />
-                    <TextBlock Text="This graph shows the average income, expenses, and savings per month over the selected period."
+                    <TextBlock FontWeight="Bold" Text="This graph shows the average income, expenses, and savings per month over the selected period."
                        Foreground="LightGray" FontSize="14" TextWrapping="Wrap" Margin="0,0,0,10" />
                     <TextBlock x:Name="MonthlyAveragesNoDataMessage" Text="No data available for Monthly Averages." 
                Foreground="Gray" FontSize="14" FontStyle="Italic" Visibility="Collapsed" />
@@ -229,7 +229,7 @@
 
                 <StackPanel Margin="10">
                     <TextBlock Text="Budget vs Actual Spending by Category" Foreground="White" FontSize="16" FontWeight="Bold" Margin="0,0,0,10" />
-                    <TextBlock Text="This bar chart compares your budgeted amounts with actual spending in each category for the most recent month."
+                    <TextBlock FontWeight="Bold" Text="This bar chart compares your budgeted amounts with actual spending in each category for the most recent month."
                Foreground="LightGray" FontSize="14" TextWrapping="Wrap" Margin="0,0,0,10" />
                     <TextBlock x:Name="BudgetVsActualNoDataMessage" Text="No data available for Budget vs Actual Spending." 
                                    Foreground="Gray" FontSize="14" FontStyle="Italic" Visibility="Collapsed" />

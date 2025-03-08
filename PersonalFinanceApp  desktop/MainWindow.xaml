@@ -32,7 +32,7 @@
 
         <!-- Dynamic Content Area -->
         <Frame x:Name="DynamicContentFrame" Grid.Row="1" Margin="10,10,10,20"
-               Background="#ff333333"
+               Background="Transparent"
                NavigationUIVisibility="Hidden" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
 
         <!-- Footer / Buttons -->
@@ -43,7 +43,7 @@
                     Style="{StaticResource DarkThemeButton}" Click="NavigateToTransactions" />
             <Button Content="View Reports" Width="100" Height="40" Margin="10"
                     Style="{StaticResource DarkThemeButton}" Click="NavigateToReports" />
-            <Button Content="Add Pay Stub" Width="100" Height="40" Margin="10"
+            <Button Content="Add Income" Width="100" Height="40" Margin="10"
                     Style="{StaticResource DarkThemeButton}" Click="NavigateToPayStub" />
             <Button Content="View Records" Width="100" Height="40" Margin="10"
                     Style="{StaticResource DarkThemeButton}" Click="NavigateToRecords" />
