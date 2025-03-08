@@ -5,6 +5,9 @@
 		<UseWPF>true</UseWPF>
 		<!-- Removed single-file and self-contained settings for default behavior -->
 	</PropertyGroup>
+	<ItemGroup>
+	  <None Remove="background.jpg" />
+	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Fody" Version="6.6.0" PrivateAssets="All" />
@@ -18,5 +21,11 @@
 		<None Update="FodyWeavers.xml">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
+	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="NewFolder\NewFolder\" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Resource Include="background.jpg" />
 	</ItemGroup>
 </Project>
